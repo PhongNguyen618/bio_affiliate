@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Links | Must-Have Items</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-grad-1: #0f172a;
+            --bg-grad-2: #1e293b;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Abstract Background Elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            margin-bottom: 1.25rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: pulse-ring 3s infinite alternate;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            100% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bg-grad-1);
+        }
+
+        .profile-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-bio {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 80%;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .links-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+        
+        /* Staggered animation for links */
+        .link-card {
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Generating delay for max 20 items */
+        .link-card:nth-child(1) { animation-delay: 0.1s; }
+        .link-card:nth-child(2) { animation-delay: 0.2s; }
+        .link-card:nth-child(3) { animation-delay: 0.3s; }
+        .link-card:nth-child(4) { animation-delay: 0.4s; }
+        .link-card:nth-child(5) { animation-delay: 0.5s; }
+        .link-card:nth-child(n+6) { animation-delay: 0.6s; }
+
+
+        .link-image-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin-right: 1.25rem;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .link-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover .link-image {
+            transform: scale(1.1);
+        }
+
+        .link-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .link-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #f1f5f9;
+        }
+
+        /* Support for multi-line but max 2 lines */
+        .link-title {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .link-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ef4444; /* Red color for price */
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-top: 4px;
+            width: fit-content;
+        }
+
+        .link-icon {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .link-card:hover .link-icon {
+            color: var(--text-main);
+            transform: translateX(3px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Section -->
+        <header class="profile-section">
+            <div class="avatar-container">
+                <!-- Replace with your default avatar or generated one -->
+                <img src="https://i.pravatar.cc/300?img=32" alt="Profile Avatar" class="avatar">
+            </div>
+            <h1 class="profile-name">@KOC_Reviewer</h1>
+            <p class="profile-bio">Săn sale sập sàn. Mình review đồ xịn ở đây 👇</p>
+        </header>
+
+        <!-- Links Container -->
+        <main class="links-container">
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/C%C6%B0%E1%BB%9Dng-l%E1%BB%B1c-t%E1%BB%B1-d%C3%A1n-cao-c%E1%BA%A5p-iphone-17-ProMax-17-Air-14-Pro-Max-14-Plus-13-12-11-ProMax-Xs-Max-X-Xr-15-16-khung-t%E1%BB%B1-l%E1%BA%A5y-b%E1%BB%A5i-i.449168894.21842197178?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Cường lực tự dán cao cấp iphone 17 ProMax 17 Air 14 Pro Max 14 Plus 13 12 11 ProMax Xs Max X Xr 15 16 khung tự lấy bụi" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Cường lực tự dán cao cấp iphone 17 ProMax 17 Air 14 Pro Max 14 Plus 13 12 11 ProMax Xs Max X Xr 15 16 khung tự lấy bụi</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/C%C6%B0%E1%BB%9Dng-l%E1%BB%B1c-iphone-14-ProMax-15-Plus-14-Pro-13-ProMax-13-Pro-12-Pro-Max-11-Pro-Max-Xs-X-Xr-7-8-Plus-16-17-Air-3D--i.448837622.21318354488?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Cường lực iphone 14 ProMax 15 Plus 14 Pro 13 ProMax 13 Pro 12 Pro Max 11 Pro Max Xs X Xr 7 8 Plus 16 17 Air [3D]" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Cường lực iphone 14 ProMax 15 Plus 14 Pro 13 ProMax 13 Pro 12 Pro Max 11 Pro Max Xs X Xr 7 8 Plus 16 17 Air [3D]</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/K%C3%ADnh-C%C6%B0%E1%BB%9Dng-L%E1%BB%B1c-iPhone-KK-4D-Cao-C%E1%BA%A5p-Full-M%C3%A0n-Cho-iPhone-6-6s-7-8-Plus-X-XS-XR-11-12-13-14-15-16-17-Pro-Max-Mini-Air-i.89827191.2608753400?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Kính Cường Lực iPhone KK 4D Cao Cấp Full Màn Cho iPhone 6/6s/7/8/Plus/X/XS/XR/11/12/13/14/15/16/17/Pro/Max/Mini/Air" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Kính Cường Lực iPhone KK 4D Cao Cấp Full Màn Cho iPhone 6/6s/7/8/Plus/X/XS/XR/11/12/13/14/15/16/17/Pro/Max/Mini/Air</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/%E1%BB%90p-L%C6%B0ng-iPhone-TPU-%C4%90%E1%BB%87m-Nhung-Ch%E1%BB%91ng-b%E1%BA%A9n-B%E1%BA%A3o-V%E1%BB%87-Camera-iP-6-7-8-X-XS-XR-11-12-13-14-15-16-17-Mini-Plus-Pro-Max-Air-i.89827191.28309604497?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Ốp Lưng iPhone TPU Đệm Nhung Chống bẩn, Bảo Vệ Camera - iP 6/7/8/X/XS/XR/11/12/13/14/15/16/17/Mini/Plus/Pro/Max/Air" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Ốp Lưng iPhone TPU Đệm Nhung Chống bẩn, Bảo Vệ Camera - iP 6/7/8/X/XS/XR/11/12/13/14/15/16/17/Mini/Plus/Pro/Max/Air</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/K%C3%ADnh-C%C6%B0%E1%BB%9Dng-L%E1%BB%B1c-Iphone-BAIK%C3%94-KK-v%C3%A0-Khung-T%E1%BB%B1-D%C3%A1n-Ch%E1%BB%91ng-Nh%C3%ACn-Tr%E1%BB%99m-ip-7-8-x-xsmax-11-12-13-14-15-16-17-Plus-pro-promax-i.130641691.13392130178?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Kính Cường Lực Iphone BAIKÔ KK và Khung Tự Dán Chống Nhìn Trộm ip 7 8 x xsmax 11 12 13 14 15 16 17 Plus pro promax" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Kính Cường Lực Iphone BAIKÔ KK và Khung Tự Dán Chống Nhìn Trộm ip 7 8 x xsmax 11 12 13 14 15 16 17 Plus pro promax</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/K%C3%ADnh-c%C6%B0%E1%BB%9Dng-l%E1%BB%B1c-iphone-KK-full-6plus-6s-6splus-7-7plus-8-8plus-x-xs-11-12-13-14-15-16-17-pro-max-promax-plus-AWiFi-D4-4-i.7669738.9717344505?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Kính cường lực iphone KK full 6plus/6s/6splus/7/7plus/8/8plus/x/xs/11/12/13/14/15/16/17/pro/max/promax/plus AWiFi D4-4" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Kính cường lực iphone KK full 6plus/6s/6splus/7/7plus/8/8plus/x/xs/11/12/13/14/15/16/17/pro/max/promax/plus AWiFi D4-4</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/K%C3%ADnh-C%C6%B0%E1%BB%9Dng-l%E1%BB%B1c-WK-KINGKONG-WTP-034-t%E1%BB%B1-d%C3%A1n-full-m%C3%A0n-ch%E1%BB%91ng-b%E1%BB%A5i-m%C3%A0n-loa-si%C3%AAu-c%E1%BB%A9ng-ch%E1%BB%91ng-b%C3%A1m-v%C3%A2ng-tay-CH%C3%8DNH-H%C3%83NG-i.995454111.18881361355?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Kính Cường lực WK KINGKONG WTP-034 tự dán full màn chống bụi màn loa siêu cứng chống bám vâng tay - CHÍNH HÃNG" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Kính Cường lực WK KINGKONG WTP-034 tự dán full màn chống bụi màn loa siêu cứng chống bám vâng tay - CHÍNH HÃNG</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/C%C6%B0%E1%BB%9Dng-l%E1%BB%B1c-ch%E1%BB%91ng-nh%C3%ACn-tr%E1%BB%99m-c%C3%B3-khung-t%E1%BB%B1-d%C3%A1n-cho-iphone-11-pro-max-12-pro-max-13-promax-x-xr-xs-max-7-8-plus-14-15-16-17-i.449168894.20625866584?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Cường lực chống nhìn trộm có khung tự dán cho iphone 11 pro max 12 pro max 13 promax x xr xs max 7 8 plus 14 15 16 17" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Cường lực chống nhìn trộm có khung tự dán cho iphone 11 pro max 12 pro max 13 promax x xr xs max 7 8 plus 14 15 16 17</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/C%C6%B0%E1%BB%9Dng-L%E1%BB%B1c-iPhone-KK-VMOX-T%E1%BB%B1-D%C3%A1n-T%E1%BB%B1-H%C3%BAt-B%E1%BB%A5i-Ch%E1%BB%91ng-Nh%C3%ACn-Tr%E1%BB%99m-Full-M%C3%A0n-Cho-iPhone-X-XS-XR-11-12-13-14-15-16-17-Pro-Max-Air-i.89827191.24995347301?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Cường Lực iPhone KK VMOX Tự Dán Tự Hút Bụi, Chống Nhìn Trộm Full Màn Cho iPhone X/XS/XR/11/12/13/14/15/16/17/Pro/Max/Air" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Cường Lực iPhone KK VMOX Tự Dán Tự Hút Bụi, Chống Nhìn Trộm Full Màn Cho iPhone X/XS/XR/11/12/13/14/15/16/17/Pro/Max/Air</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            <!-- Single Link Card -->
+            <a href="https://shopee.vn/K%C3%ADnh-C%C6%B0%E1%BB%9Dng-L%E1%BB%B1c-Ch%E1%BB%91ng-Nh%C3%ACn-Tr%E1%BB%99m-C%C3%B3-Khung-T%E1%BB%B1-D%C3%A1n-Trong-Su%E1%BB%91t-iPhone-7-8-Plus-X-XS-XR-11-12-13-14-15-16-17Pro-Max-Mini-Air-i.89827191.4812682396?aff_siteid=17394170468" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-image-wrapper">
+                    <img src="https://placehold.co/100x100?text=Hot+Deal" alt="Kính Cường Lực Chống Nhìn Trộm Có Khung Tự Dán, Trong Suốt -iPhone 7/8/Plus/X/XS/XR/11/12/13/14/15/16/17Pro/Max/Mini/Air" class="link-image">
+                </div>
+                <div class="link-content">
+                    <h2 class="link-title">Kính Cường Lực Chống Nhìn Trộm Có Khung Tự Dán, Trong Suốt -iPhone 7/8/Plus/X/XS/XR/11/12/13/14/15/16/17Pro/Max/Mini/Air</h2>
+                    
+                    <span class="link-price" style="color:#10b981; background:rgba(16, 185, 129, 0.1)">Hot Deal 🔥</span>
+                    
+                </div>
+                <div class="link-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </a>
+            
+            
+            
+        </main>
+
+        <footer>
+            <p>Powered by Auto Reup System © 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
